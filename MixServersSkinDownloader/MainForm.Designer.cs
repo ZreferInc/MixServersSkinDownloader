@@ -36,6 +36,7 @@ namespace MixServersSkinDownloader
             this.CloakRB = new System.Windows.Forms.RadioButton();
             this.DwnldTypLabel = new System.Windows.Forms.Label();
             this.DwnldBtn = new System.Windows.Forms.Button();
+            this.ShowFileCB = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // NickLabel
@@ -81,6 +82,7 @@ namespace MixServersSkinDownloader
             this.CloakRB.Name = "CloakRB";
             this.CloakRB.Size = new System.Drawing.Size(78, 28);
             this.CloakRB.TabIndex = 2;
+            this.CloakRB.TabStop = true;
             this.CloakRB.Text = "Плащ";
             this.CloakRB.UseVisualStyleBackColor = true;
             // 
@@ -107,17 +109,29 @@ namespace MixServersSkinDownloader
             this.DwnldBtn.UseVisualStyleBackColor = true;
             this.DwnldBtn.Click += new System.EventHandler(this.DwnldBtn_Click);
             // 
+            // ShowFileCB
+            // 
+            this.ShowFileCB.AutoSize = true;
+            this.ShowFileCB.Location = new System.Drawing.Point(15, 126);
+            this.ShowFileCB.Name = "ShowFileCB";
+            this.ShowFileCB.Size = new System.Drawing.Size(345, 28);
+            this.ShowFileCB.TabIndex = 4;
+            this.ShowFileCB.Text = "Показывать файл в проводнике";
+            this.ShowFileCB.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(452, 126);
+            this.ClientSize = new System.Drawing.Size(452, 165);
+            this.Controls.Add(this.ShowFileCB);
             this.Controls.Add(this.DwnldBtn);
             this.Controls.Add(this.CloakRB);
             this.Controls.Add(this.SkinRB);
             this.Controls.Add(this.NickTB);
             this.Controls.Add(this.DwnldTypLabel);
             this.Controls.Add(this.NickLabel);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -138,6 +152,7 @@ namespace MixServersSkinDownloader
         private System.Windows.Forms.RadioButton CloakRB;
         private System.Windows.Forms.Label DwnldTypLabel;
         private System.Windows.Forms.Button DwnldBtn;
+        private System.Windows.Forms.CheckBox ShowFileCB;
     }
 }
 

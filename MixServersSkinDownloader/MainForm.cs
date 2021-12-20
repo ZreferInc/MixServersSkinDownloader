@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -16,14 +17,14 @@ namespace MixServersSkinDownloader
             InitializeComponent();
         }
 
-        private void DwnldBtn_Click(object sender, System.EventArgs e) => Download();
+        private void DwnldBtn_Click(object sender, EventArgs e) => Download();
 
         private void NickTB_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter) Download();
         }
 
-        private void NickTB_TextChanged(object sender, System.EventArgs e)
+        private void NickTB_TextChanged(object sender, EventArgs e)
         {
             NickTB.Text = Regex.Replace(NickTB.Text, "[\r ]+", "");
             NickTB.SelectionStart = NickTB.Text.Length;
@@ -33,17 +34,13 @@ namespace MixServersSkinDownloader
         private void Download()
         {
             string URI = $"http://files.mix-servers.com/web/{(SkinRB.Checked ? "skins" : "cloaks")}/{NickTB.Text}.png";
-            string UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36";
 
             using HttpClient Client = new();
             using HttpRequestMessage Message = new(HttpMethod.Get, URI);
-            Message.Headers.UserAgent.ParseAdd(UserAgent);
-            Message.Headers.TryAddWithoutValidation("Upgrade-Insecure-Requests", "1");
 
             try
             {
-                HttpResponseMessage Response =
-                    Client.SendAsync(Message, HttpCompletionOption.ResponseContentRead).Result;
+                HttpResponseMessage Response = Client.SendAsync(Message, HttpCompletionOption.ResponseContentRead).Result;
                 if (Response.StatusCode == HttpStatusCode.NotFound)
                 {
                     Error($"{(SkinRB.Checked ? "Скин" : "Плащ")} по этому никнейму не был найден");
@@ -70,6 +67,12 @@ namespace MixServersSkinDownloader
                 catch (Exception ie)
                 {
                     throw new BadImageFormatException(ie.Message);
+                }
+
+                if (ShowFileCB.Checked)
+                {
+                    Process.Start("explorer", $"/select,\"{SaveDialog.FileName}\"");
+                    ShowFileCB.Checked = false;
                 }
             }
             catch (AggregateException ae)
