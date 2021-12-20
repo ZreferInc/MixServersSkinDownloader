@@ -61,16 +61,15 @@ namespace MixServersSkinDownloader
                     RestoreDirectory = true,
                     Title = $"Сохранить {(SkinRB.Checked ? "скин" : "плащ")} игрока {NickTB.Text}"
                 };
-                if (SaveDialog.ShowDialog() == DialogResult.OK)
+                if (SaveDialog.ShowDialog() != DialogResult.OK) return;
+
+                try
                 {
-                    try
-                    {
-                        Image.FromStream(ms).Save(SaveDialog.FileName, ImageFormat.Png);
-                    }
-                    catch (Exception ie)
-                    {
-                        throw new BadImageFormatException(ie.Message);
-                    }
+                    Image.FromStream(ms).Save(SaveDialog.FileName, ImageFormat.Png);
+                }
+                catch (Exception ie)
+                {
+                    throw new BadImageFormatException(ie.Message);
                 }
             }
             catch (AggregateException ae)
