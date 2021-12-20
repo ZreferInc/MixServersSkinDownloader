@@ -86,7 +86,8 @@ namespace MixServersSkinDownloader
             }
             catch (Exception e)
             {
-                Error($"Неизвестная ошибка:\n{e.Message}");
+                Error($"Неизвестная ошибка:\n{e.Message}\n\nStackTrace сохранен рядом с программой");
+                File.WriteAllText("StackTrace.log", e.StackTrace);
             }
         }
 
